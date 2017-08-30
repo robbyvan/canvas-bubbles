@@ -78,9 +78,27 @@ function Circle(x, y, dx, dy, radius) {
   };
 }
 
+
+var myName = ['罗', '比'];
+function singleChar(char, color, x, y) {
+  this.text = char;
+  this.color = color;
+  this.x = x;
+  this.y = y;
+
+  this.draw = function() {
+    c.font = '80pt sans-serif';
+    this.fillStyle = this.color;
+    c.fillText(this.text, x, y);
+  }
+}
+
 // Initialize
 var circleArray = [];
+var nameArray = [];
+
 function init() {
+  c.clearRect(0, 0, innerWidth, innerHeight);
   circleArray = [];
   for (var i = 0; i < 600; ++i) {
     var radius = Math.random() * 3 + 2;
@@ -91,7 +109,20 @@ function init() {
 
     circleArray.push(new Circle(x, y, dx, dy, radius));
   }
+
+  for (var i = 0; i < myName.length; ++i) {
+    var x = innerWidth * 0.4 + 100 * i;
+    var y = innerHeight * 0.5;
+    var color = colorArray[i];
+    nameArray.push(new singleChar(myName[i], color, x, y));
+  }
+
+  console.log(nameArray);
+
 }
+
+
+
 
 // Animate
 function animateCircles() {
@@ -100,6 +131,10 @@ function animateCircles() {
 
   for (var i = 0; i < circleArray.length; ++i) {
     circleArray[i].update();
+  }
+
+  for (var i = 0; i < nameArray.length; ++i) {
+    nameArray[i].draw();
   }
   
 }
